@@ -29,7 +29,7 @@ const DocsTemplate = ({ location, data, pageContext }: any) => {
               hashLink={location.hash}
               sideNav={docsMenu}
               globalNav={globalDocsNav}
-              templateId={2}
+              section={data.mdx.frontmatter.section}
             />
           </div>
           <div className="hidden lg:inline-block lg:flex-none lg:h-auto lg:bg-substrateGray-light lg:dark:bg-substrateDark border-r border-gray-200 dark:border-gray-700">
@@ -38,7 +38,7 @@ const DocsTemplate = ({ location, data, pageContext }: any) => {
               hashLink={location.hash}
               sideNav={docsMenu}
               globalNav={globalDocsNav}
-              templateId={2}
+              section={data.mdx.frontmatter.section}
             />
           </div>
           <article className="px-4 mb-20 lg:flex lg:mx-auto">
@@ -95,11 +95,8 @@ const DocsTemplate = ({ location, data, pageContext }: any) => {
 export default DocsTemplate
 
 export const query = graphql`
-  query ($locale: String!, $slug: String!) {
-    mdx(
-      fields: { locale: { eq: $locale } }
-      frontmatter: { slug: { eq: $slug } }
-    ) {
+  query ($slug: String!) {
+    mdx(frontmatter: { slug: { eq: $slug } }) {
       frontmatter {
         slug
         title
